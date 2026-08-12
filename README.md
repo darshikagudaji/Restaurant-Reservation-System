@@ -59,7 +59,7 @@ Make sure MongoDB is running.
 
 Connect MongoDB Compass to:
 
-mongodb://localhost:27017/
+```textmongodb://localhost:27017/```text
 
 ## 4. Run the Application
 
