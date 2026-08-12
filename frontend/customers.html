@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Customers | Admin</title>
+
+    <link rel="stylesheet" href="css/admin.css">
+
+</head>
+
+<body>
+
+<!-- ================= ADMIN HEADER ================= -->
+
+<header>
+
+    <div class="logo">
+        <h2>🍽 Food Palace Admin</h2>
+    </div>
+
+    <nav>
+
+        <a href="admin.html">Dashboard</a>
+
+       <a href="customers.html" class="active">Customers</a>
+
+        <a href="admin-reservation.html">Reservations</a>
+
+         <a href="today-reservations.html">Today's Reservations</a>
+
+        <a href="upcoming-reservations.html">Upcoming</a>
+
+        <a href="tables.html">Tables</a>
+
+        <a href="index.html" id="logoutBtn">Logout</a>
+
+    </nav>
+
+</header>
+
+
+<section class="dashboard">
+
+    <h1>Registered Customers</h1>
+
+    <div class="table-responsive">
+
+        <table class="booking-table">
+
+            <thead>
+
+                <tr>
+
+                    <th>Name</th>
+
+                    <th>Username</th>
+
+                    <th>Phone</th>
+
+                    <th>Role</th>
+
+                </tr>
+
+            </thead>
+
+            <tbody id="customerTable">
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+</section>
+
+<script src="js/admin.js"></script>
+
+</body>
+
+</html>
