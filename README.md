@@ -1,6 +1,6 @@
-Name:Darshika Gudaji <br>
+**Name:Darshika Gudaji <br>
 Roll No:529
-
+**
 # Restaurant Reservation System
 
 A web-based Restaurant Reservation System developed using HTML, CSS and JavaScript for the frontend, Node.js + Express for the backend, and MongoDB for database management. The system provides separate functionality for Customers and Admin.
