@@ -124,7 +124,7 @@ RESTAURANT_RESERVATION/
 │   ├── package.json
 │   ├── package-lock.json
 │   └── server.js
-│
+
 ├── frontend/
 │   ├── css/
 │   ├── js/
@@ -211,8 +211,3 @@ The objective of the Restaurant Reservation System is to provide a simple web-ba
 
 The system allows customers to make reservations online and allows the admin to manage customers, tables and reservations through the Admin panel.
 
-## 12. Author
-
-Darshika Maruti Gudaji
-
-B.Sc. Information Technology
