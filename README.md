@@ -114,8 +114,8 @@ The admin can view and manage the reservation from the Admin panel.
 
 ## 7. Project Structure
 
+```text
 RESTAURANT_RESERVATION/
-│
 ├── backend/
 │   ├── config/
 │   ├── controllers/
@@ -124,7 +124,7 @@ RESTAURANT_RESERVATION/
 │   ├── package.json
 │   ├── package-lock.json
 │   └── server.js
-
+│
 ├── frontend/
 │   ├── css/
 │   ├── js/
@@ -141,6 +141,7 @@ RESTAURANT_RESERVATION/
 │   └── upcoming-reservations.html
 │
 └── README.md
+```
 
 ## 8. MongoDB Collections
 
