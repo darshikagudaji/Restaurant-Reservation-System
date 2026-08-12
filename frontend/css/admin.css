@@ -1,0 +1,596 @@
+/* ===================================
+   GLOBAL
+=================================== */
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Segoe UI',sans-serif;
+}
+
+body{
+    background:#f4f6f9;
+    color:#333;
+}
+
+/* ===================================
+   HEADER
+=================================== */
+
+header{
+
+    width:100%;
+
+    background:#1f2937;
+
+    color:#fff;
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    padding:18px 60px;
+
+    position:sticky;
+
+    top:0;
+
+    z-index:1000;
+
+    box-shadow:0 4px 15px rgba(0,0,0,.15);
+
+}
+
+.logo h2{
+
+    color:#ff9800;
+
+    font-size:28px;
+
+    font-weight:700;
+
+}
+
+nav{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:12px;
+
+}
+
+nav a{
+
+    text-decoration:none;
+
+    color:#fff;
+
+    padding:12px 18px;
+
+    border-radius:8px;
+
+    font-size:16px;
+
+    font-weight:500;
+
+    transition:.3s;
+
+}
+
+nav a:hover{
+
+    background:#ff9800;
+
+    color:#fff;
+
+}
+
+nav a.active{
+
+    background:#ff9800;
+
+    color:#fff;
+
+}
+
+#logoutBtn{
+
+    background:#dc2626;
+
+    color:#fff;
+
+}
+
+#logoutBtn:hover{
+
+    background:#b91c1c;
+
+}
+
+/* ===================================
+   DASHBOARD
+=================================== */
+
+.dashboard{
+
+    width:90%;
+
+    margin:50px auto;
+
+}
+
+.dashboard h1{
+
+    text-align:center;
+
+    font-size:34px;
+
+    margin-bottom:40px;
+
+    color:#222;
+
+}
+
+/* ===================================
+   DASHBOARD CARDS
+=================================== */
+
+.cards{
+
+    display:grid;
+
+    grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+
+    gap:25px;
+
+}
+
+.card{
+
+    background:#fff;
+
+    border-radius:15px;
+
+    padding:30px;
+
+    text-align:center;
+
+    box-shadow:0 8px 20px rgba(0,0,0,.08);
+
+    transition:.3s;
+
+}
+
+.card:hover{
+
+    transform:translateY(-8px);
+
+}
+
+.card h2{
+
+    font-size:42px;
+
+    color:#ff9800;
+
+    margin-bottom:10px;
+
+}
+
+.card p{
+
+    color:#555;
+
+    font-size:17px;
+
+    font-weight:500;
+
+}
+
+/* Left Color Borders */
+
+.card:nth-child(1){
+    border-left:6px solid #3b82f6;
+}
+
+.card:nth-child(2){
+    border-left:6px solid #16a34a;
+}
+
+.card:nth-child(3){
+    border-left:6px solid #f59e0b;
+}
+
+.card:nth-child(4){
+    border-left:6px solid #ef4444;
+}
+
+.card:nth-child(5){
+    border-left:6px solid #8b5cf6;
+}
+
+.card:nth-child(6){
+    border-left:6px solid #10b981;
+}
+
+.card:nth-child(7){
+    border-left:6px solid #f43f5e;
+}
+
+/* ===================================
+   QUICK ACCESS
+=================================== */
+
+.quick-links{
+
+    width:90%;
+
+    margin:60px auto;
+
+}
+
+.quick-links h2{
+
+    text-align:center;
+
+    margin-bottom:30px;
+
+    color:#222;
+
+    font-size:30px;
+
+}
+
+.links{
+
+    display:flex;
+
+    gap:25px;
+
+    flex-wrap:wrap;
+
+    justify-content:center;
+
+}
+
+.links a{
+
+    flex:1;
+
+    min-width:250px;
+
+    text-decoration:none;
+
+    background:#ff9800;
+
+    color:#fff;
+
+    padding:25px;
+
+    text-align:center;
+
+    border-radius:12px;
+
+    font-size:20px;
+
+    font-weight:600;
+
+    transition:.3s;
+
+    box-shadow:0 5px 15px rgba(255,152,0,.3);
+
+}
+
+.links a:hover{
+
+    background:#e67e00;
+
+    transform:translateY(-6px);
+
+}
+
+/* ===================================
+   TABLE DESIGN
+=================================== */
+
+.table-container{
+
+    width:90%;
+
+    margin:40px auto;
+
+    background:#fff;
+
+    padding:25px;
+
+    border-radius:15px;
+
+    box-shadow:0 8px 20px rgba(0,0,0,.08);
+
+    overflow-x:auto;
+
+}
+
+table{
+
+    width:100%;
+
+    border-collapse:collapse;
+
+}
+
+table th{
+
+    background:#1f2937;
+
+    color:#fff;
+
+    padding:15px;
+
+    font-size:16px;
+
+}
+
+table td{
+
+    padding:15px;
+
+    border-bottom:1px solid #eee;
+
+    text-align:center;
+
+}
+
+table tr:hover{
+
+    background:#f9fafb;
+
+}
+
+/* ===================================
+   BUTTONS
+=================================== */
+
+.btn{
+
+    padding:8px 18px;
+
+    border:none;
+
+    border-radius:6px;
+
+    color:#fff;
+
+    cursor:pointer;
+
+    font-size:14px;
+
+    transition:.3s;
+
+}
+
+.btn-confirm{
+
+    background:#10b981;
+
+}
+
+.btn-confirm:hover{
+
+    background:#059669;
+
+}
+
+.btn-cancel{
+
+    background:#ef4444;
+
+}
+
+.btn-cancel:hover{
+
+    background:#dc2626;
+
+}
+
+/* ===================================
+   STATUS
+=================================== */
+
+.status{
+
+    padding:6px 14px;
+
+    border-radius:20px;
+
+    color:#fff;
+
+    font-size:13px;
+
+    font-weight:600;
+
+}
+
+.pending{
+
+    background:#f59e0b;
+
+}
+
+.confirmed{
+
+    background:#10b981;
+
+}
+
+.cancelled{
+
+    background:#ef4444;
+
+}
+
+/* ===================================
+   RESPONSIVE
+=================================== */
+
+@media(max-width:768px){
+
+header{
+
+    flex-direction:column;
+
+    gap:20px;
+
+    padding:20px;
+
+}
+
+.logo h2{
+
+    font-size:24px;
+
+}
+
+nav{
+
+    flex-wrap:wrap;
+
+    justify-content:center;
+
+}
+
+nav a{
+
+    padding:10px 15px;
+
+    font-size:15px;
+
+}
+
+.dashboard{
+
+    width:95%;
+
+}
+
+.dashboard h1{
+
+    font-size:28px;
+
+}
+
+.cards{
+
+    grid-template-columns:1fr;
+
+}
+
+.links{
+
+    flex-direction:column;
+
+}
+
+.links a{
+
+    width:100%;
+
+}
+
+.table-container{
+
+    width:95%;
+
+}
+
+}
+
+/* ==========================
+   Reservation Table
+========================== */
+
+table{
+    width:100%;
+    border-collapse:collapse;
+    margin-top:20px;
+    background:#fff;
+}
+
+table th,
+table td{
+    padding:14px 16px;
+    text-align:center;
+    border-bottom:1px solid #ddd;
+    white-space:nowrap;
+}
+
+table th{
+    background:#011844;
+    color:#fff;
+    font-weight:600;
+}
+
+table tr:hover{
+    background:#f8f9fa;
+}
+
+/* ===================================
+   ACTION BUTTONS
+=================================== */
+
+.action-buttons{
+    display:flex;
+    gap:8px;
+    justify-content:center;
+    flex-wrap:wrap;
+}
+
+.btn{
+    border:none;
+    padding:8px 16px;
+    border-radius:8px;
+    color:#fff;
+    cursor:pointer;
+    font-size:14px;
+    font-weight:600;
+    transition:.3s;
+}
+
+.btn:hover{
+    transform:translateY(-2px);
+    box-shadow:0 6px 12px rgba(0,0,0,.2);
+}
+
+.btn-confirm{
+    background:#16a34a;
+}
+
+.btn-confirm:hover{
+    background:#15803d;
+}
+
+.btn-reject{
+    background:#dc2626;
+}
+
+.btn-reject:hover{
+    background:#b91c1c;
+}
+
+.btn-complete{
+    background:#2563eb;
+}
+
+.btn-complete:hover{
+    background:#1d4ed8;
+}
+
+.status-completed{
+    color:#16a34a;
+    font-weight:bold;
+}
