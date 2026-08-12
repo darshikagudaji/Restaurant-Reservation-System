@@ -59,7 +59,7 @@ Make sure MongoDB is running.
 
 Connect MongoDB Compass to:
 
-```textmongodb://localhost:27017/```
+```mongodb://localhost:27017/```
 
 ## 4. Run the Application
 
@@ -69,7 +69,7 @@ npm run dev
 
 Backend server:
 
-```texthttp://localhost:5000```
+```http://localhost:5000```
 
 Then open the frontend using VS Code Live Server.
 
@@ -162,7 +162,7 @@ MongoDB Compass can be used to view the database and collections.
 
 Make sure the backend is running:
 
-```text http://localhost:5000```
+```http://localhost:5000```
 
 Also check the terminal and browser console for errors.
 
@@ -170,7 +170,7 @@ Also check the terminal and browser console for errors.
 
 Make sure MongoDB is running and MongoDB Compass can connect to:
 
-```text mongodb://localhost:27017/```
+``` mongodb://localhost:27017/```
 
 Check the MongoDB connection settings in the backend.
 
