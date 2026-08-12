@@ -34,7 +34,6 @@ mongodb://localhost:27017/
 
 ### Tools
 - Visual Studio Code
-- GitHub
 - Live Server
 
 ## 3. Setup
