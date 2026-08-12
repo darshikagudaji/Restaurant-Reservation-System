@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Food Palace</title>
+
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+
+<!-- ======================================
+     HEADER
+====================================== -->
+
+<header>
+
+    <div class="logo">
+        <h2>🍽 Food Palace</h2>
+    </div>
+
+    <nav>
+        <a href="index.html">Home</a>
+        <a href="register.html">Register</a>
+    </nav>
+
+</header>
+
+
+<!-- ======================================
+     LOGIN SECTION
+====================================== -->
+
+<section class="form-section">
+
+    <div class="form-box">
+
+        <h2>Customer Login</h2>
+
+        <form id="loginForm">
+
+            <!-- Username -->
+
+            <input
+                type="text"
+                id="loginUsername"
+                placeholder="Username"
+                required
+            >
+
+            <!-- Password -->
+
+            <input
+                type="password"
+                id="loginPassword"
+                placeholder="Password"
+                required
+            >
+
+            <!-- Forgot Password -->
+
+            <div class="forgot-link">
+
+                <a href="forgot-password.html">
+
+                    Forgot Password?
+
+                </a>
+
+            </div>
+
+            <!-- Login Button -->
+
+            <button type="submit">
+
+                Login
+
+            </button>
+
+        </form>
+
+        <p>
+
+            Don't have an account?
+
+            <a href="register.html">
+
+                Register
+
+            </a>
+
+        </p>
+
+    </div>
+
+</section>
+
+
+<!-- ======================================
+     TOAST MESSAGE
+====================================== -->
+
+<div id="toast" class="toast"></div>
+
+
+<!-- ======================================
+     JAVASCRIPT
+====================================== -->
+
+<script src="js/app.js"></script>
+
+</body>
+</html>

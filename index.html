@@ -1,0 +1,98 @@
+<!-- === Header (Dynamically uses restaurantName) === -->
+ <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Restaurant Reservation System</title>
+
+    <link rel="stylesheet" href="css/style.css">
+    
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+<header>
+    
+    <div class="logo">
+        <!-- Pulls from restaurant.restaurantName -->
+        <h2>🍽 Food Palace</h2> 
+    </div>
+    <nav>
+        <a href="index.html">Home</a>
+        <a href="#about">About</a>
+        <a href="#contact">Contact</a>
+        <a href="login.html">Login</a>
+        <a href="register.html">Register</a>
+    </nav>
+    <a href="login.html" class="reserve-btn">Reserve Table</a>
+</header>
+
+<!-- === Hero Section === -->
+<section class="hero">
+    <div class="overlay"></div>
+    <div class="hero-content">
+        <h1>Reserve Your Perfect <span>Dining Experience</span></h1>
+        <!-- Pulls from restaurant.restaurantName -->
+        
+        <p>
+            Welcome to Food Palace. Book your restaurant table online quickly and easily. 
+            Avoid waiting and reserve your table in advance.
+        </p>
+        <div class="hero-buttons">
+            <a href="login.html" class="btn1">Reserve Table</a>
+        </div>
+    </div>
+</section>
+
+<!-- === About Section === -->
+<section class="about" id="about">
+    <div class="about-wrapper">
+        <div class="about-container">
+            <div class="about-text">
+                <h2>A Haven for <br><span class="highlight">Discerning Palates</span></h2>
+                <!-- Pulls from restaurant.restaurantName -->
+                <p>
+                    Founded in 2009, Food Palace has been redefining fine dining with an unwavering commitment to culinary excellence. Our philosophy is simple: use the best ingredients, honor traditional techniques, and never stop innovating.
+                </p>
+                <p>
+                    Led by Chef Marcus Brennan, our team combines classical training with modern creativity to deliver experiences that delight all the senses.
+                </p>
+            </div>
+
+            <div class="about-gallery">
+                <div class="gallery-item"><img src="images/steak.jpg" alt="Steak"></div>
+                <div class="gallery-item"><img src="images/Restaurant Interior.jpg" alt="Interior"></div>
+                <div class="gallery-item"><img src="images/wine.jpg" alt="Wine"></div>
+                <div class="gallery-item"><img src="images/sushi.jpg" alt="Sushi"></div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- === Footer Section (Dynamically uses address, phone, timings) === -->
+<footer id="contact">
+
+    <h2>Contact Us</h2>
+
+    <p><strong>Restaurant:</strong> <span id="restaurantName"></span></p>
+
+    <p><strong>Address:</strong> <span id="address"></span></p>
+
+    <p><strong>Phone:</strong> <span id="phone"></span></p>
+
+    <p><strong>Email:</strong> <span id="email"></span></p>
+
+    <p><strong>Opening Time:</strong> <span id="openingTime"></span></p>
+
+    <p><strong>Closing Time:</strong> <span id="closingTime"></span></p>
+
+    <p class="copyright">© 2026 Food Palace. All Rights Reserved.</p>
+
+</footer>
+
+<script src="js/app.js"></script>
+
+</body>
+</html>
