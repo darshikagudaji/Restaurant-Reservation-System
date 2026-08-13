@@ -1,0 +1,140 @@
+[{
+  "_id": {
+    "$oid": "6a5f81d5857837e373236f03"
+  },
+  "customerName": "Asha",
+  "username": "Ashu12",
+  "phone": "7208798379",
+  "tableNumber": 7,
+  "reservationDate": "2026-07-19",
+  "reservationTime": "11:57",
+  "guests": 4,
+  "status": "Pending",
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a5f961731162b50276fa997"
+  },
+  "customerName": "reshma",
+  "username": "reshma1",
+  "phone": "13324324231",
+  "tableNumber": 2,
+  "reservationDate": "2026-07-15",
+  "reservationTime": "21:23",
+  "guests": 2,
+  "status": "Confirmed",
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a5f966531162b50276fa998"
+  },
+  "customerName": "reshma",
+  "username": "reshma1",
+  "phone": "13324324231",
+  "tableNumber": 2,
+  "reservationDate": "2026-07-15",
+  "reservationTime": "21:23",
+  "guests": 2,
+  "status": "Pending",
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a5f993b6cd7468d11754fcc"
+  },
+  "customerName": "reshma",
+  "username": "reshma1",
+  "phone": "12243244345",
+  "tableNumber": 3,
+  "reservationDate": "2026-07-15",
+  "reservationTime": "10:37",
+  "guests": 5,
+  "status": "Confirmed",
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a64cc2da3a9997641611429"
+  },
+  "customerName": "Darshika",
+  "username": "darshu",
+  "phone": "1234567890",
+  "tableNumber": 4,
+  "reservationDate": "2026-07-31",
+  "reservationTime": "10:15",
+  "guests": 2,
+  "status": "Pending",
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a64cca7d2ec19fd38ef61c3"
+  },
+  "customerName": "Darshika",
+  "username": "darshu",
+  "phone": "1234567890",
+  "tableNumber": 3,
+  "reservationDate": "2026-07-31",
+  "reservationTime": "10:18",
+  "guests": 2,
+  "status": "Completed",
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a64f37627310d59ec635b15"
+  },
+  "customerName": "Aniruddha",
+  "username": "Anu12",
+  "phone": "1234567",
+  "tableNumber": 3,
+  "reservationDate": "2026-07-26",
+  "reservationTime": "11:03",
+  "guests": 3,
+  "status": "Pending",
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a6500440bd63c54143dc91e"
+  },
+  "customerName": "Darshika",
+  "username": "darshu",
+  "phone": "1234567",
+  "tableNumber": 1,
+  "reservationDate": "2026-07-25",
+  "reservationTime": "12:58",
+  "guests": 2,
+  "status": "Pending",
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a65100ca066e5003df27053"
+  },
+  "customerName": "Darshika",
+  "username": "darshu12",
+  "phone": "1234567",
+  "tableNumber": 6,
+  "reservationDate": "2026-07-25",
+  "reservationTime": "15:05",
+  "guests": 6,
+  "status": "Pending",
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a665405b6e0cc53478b5fa5"
+  },
+  "customerName": "Asha",
+  "username": "ashu12",
+  "phone": "1234567",
+  "tableNumber": 2,
+  "reservationDate": "2026-07-28",
+  "reservationTime": "12:07",
+  "guests": 2,
+  "status": "Confirmed",
+  "__v": 0
+}]

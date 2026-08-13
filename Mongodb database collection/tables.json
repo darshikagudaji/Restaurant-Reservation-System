@@ -1,0 +1,80 @@
+[{
+  "_id": {
+    "$oid": "6a564aca2c6878b36abf5fe0"
+  },
+  "tableNumber": 1,
+  "seats": 4,
+  "status": "Available"
+},
+{
+  "_id": {
+    "$oid": "6a564ae82c6878b36abf5fe2"
+  },
+  "tableNumber": 2,
+  "seats": 2,
+  "status": "Available"
+},
+{
+  "_id": {
+    "$oid": "6a564aff2c6878b36abf5fe4"
+  },
+  "tableNumber": 3,
+  "seats": 6,
+  "status": "Available"
+},
+{
+  "_id": {
+    "$oid": "6a564b0b2c6878b36abf5fe6"
+  },
+  "tableNumber": 4,
+  "seats": 4,
+  "status": "Available"
+},
+{
+  "_id": {
+    "$oid": "6a564b1a2c6878b36abf5fe8"
+  },
+  "tableNumber": 5,
+  "seats": 2,
+  "status": "Available"
+},
+{
+  "_id": {
+    "$oid": "6a5f771f6509111698fe8754"
+  },
+  "tableNumber": 6,
+  "seats": 4,
+  "status": "Available"
+},
+{
+  "_id": {
+    "$oid": "6a5f773a6509111698fe8756"
+  },
+  "tableNumber": 7,
+  "seats": 2,
+  "status": "Available"
+},
+{
+  "_id": {
+    "$oid": "6a5f77506509111698fe8758"
+  },
+  "tableNumber": 8,
+  "seats": 6,
+  "status": "Available"
+},
+{
+  "_id": {
+    "$oid": "6a5f77826509111698fe875b"
+  },
+  "tableNumber": 9,
+  "seats": 4,
+  "status": "Available"
+},
+{
+  "_id": {
+    "$oid": "6a5f779a6509111698fe875d"
+  },
+  "tableNumber": 10,
+  "seats": 8,
+  "status": "Available"
+}]
