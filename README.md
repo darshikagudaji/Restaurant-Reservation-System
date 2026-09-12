@@ -88,7 +88,7 @@ Then open the frontend using VS Code Live Server.
 - Make a reservation
 - View My Bookings
 - View reservation status
-- Cancel a reservation
+- Cancel  and Reschedule a reservation
 - Logout
 
 ### Admin
