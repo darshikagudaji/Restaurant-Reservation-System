@@ -6,6 +6,7 @@ console.log("app.js loaded");
 
 const API_URL = "http://localhost:5000";
 
+
 // ==========================================
 // RESTAURANT DETAILS
 // ==========================================
@@ -22,12 +23,23 @@ if (restaurantName) {
 
             if (restaurant) {
 
-                document.getElementById("restaurantName").innerText = restaurant.restaurantName;
-                document.getElementById("address").innerText = restaurant.address;
-                document.getElementById("phone").innerText = restaurant.phone;
-                document.getElementById("email").innerText = restaurant.email;
-                document.getElementById("openingTime").innerText = restaurant.openingTime;
-                document.getElementById("closingTime").innerText = restaurant.closingTime;
+                document.getElementById("restaurantName").innerText =
+                    restaurant.restaurantName;
+
+                document.getElementById("address").innerText =
+                    restaurant.address;
+
+                document.getElementById("phone").innerText =
+                    restaurant.phone;
+
+                document.getElementById("email").innerText =
+                    restaurant.email;
+
+                document.getElementById("openingTime").innerText =
+                    restaurant.openingTime;
+
+                document.getElementById("closingTime").innerText =
+                    restaurant.closingTime;
 
             }
 
@@ -35,6 +47,7 @@ if (restaurantName) {
         .catch(error => console.log(error));
 
 }
+
 
 // ==========================================
 // LOGIN
@@ -48,32 +61,43 @@ if (loginForm) {
 
         e.preventDefault();
 
-        const username = document.getElementById("loginUsername").value;
-        const password = document.getElementById("loginPassword").value;
+        const username =
+            document.getElementById("loginUsername").value;
+
+        const password =
+            document.getElementById("loginPassword").value;
 
         try {
 
-            const response = await fetch(`${API_URL}/users/login`, {
+            const response = await fetch(
+                `${API_URL}/users/login`,
+                {
+                    method: "POST",
 
-                method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
 
-                headers: {
-                    "Content-Type": "application/json"
-                },
-
-                body: JSON.stringify({
-                    username,
-                    password
-                })
-
-            });
+                    body: JSON.stringify({
+                        username,
+                        password
+                    })
+                }
+            );
 
             const data = await response.json();
 
             if (response.ok) {
 
-                localStorage.setItem("username", data.user.username);
-                localStorage.setItem("role", data.user.role);
+                localStorage.setItem(
+                    "username",
+                    data.user.username
+                );
+
+                localStorage.setItem(
+                    "role",
+                    data.user.role
+                );
 
                 showToast("Login Successful!");
 
@@ -81,11 +105,13 @@ if (loginForm) {
 
                     if (data.user.role === "admin") {
 
-                        window.location.href = "admin.html";
+                        window.location.href =
+                            "admin.html";
 
                     } else {
 
-                        window.location.href = "book-reservation.html";
+                        window.location.href =
+                            "book-reservation.html";
 
                     }
 
@@ -97,7 +123,9 @@ if (loginForm) {
 
             }
 
-        } catch (error) {
+        }
+
+        catch (error) {
 
             console.log(error);
 
@@ -109,11 +137,13 @@ if (loginForm) {
 
 }
 
+
 // ==========================================
 // CUSTOMER REGISTRATION
 // ==========================================
 
-const registerForm = document.getElementById("registerForm");
+const registerForm =
+    document.getElementById("registerForm");
 
 if (registerForm) {
 
@@ -121,31 +151,37 @@ if (registerForm) {
 
         e.preventDefault();
 
-        const name = document.getElementById("name").value;
-        const username = document.getElementById("username").value;
-        const phone = document.getElementById("phone").value;
-        const password = document.getElementById("password").value;
+        const name =
+            document.getElementById("name").value;
+
+        const username =
+            document.getElementById("username").value;
+
+        const phone =
+            document.getElementById("phone").value;
+
+        const password =
+            document.getElementById("password").value;
 
         try {
 
-            const response = await fetch(`${API_URL}/users/register`, {
+            const response = await fetch(
+                `${API_URL}/users/register`,
+                {
+                    method: "POST",
 
-                method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
 
-                headers: {
-                    "Content-Type": "application/json"
-                },
-
-                body: JSON.stringify({
-
-                    name,
-                    username,
-                    phone,
-                    password
-
-                })
-
-            });
+                    body: JSON.stringify({
+                        name,
+                        username,
+                        phone,
+                        password
+                    })
+                }
+            );
 
             const data = await response.json();
 
@@ -157,7 +193,8 @@ if (registerForm) {
 
                 setTimeout(() => {
 
-                    window.location.href = "login.html";
+                    window.location.href =
+                        "login.html";
 
                 }, 2000);
 
@@ -167,7 +204,9 @@ if (registerForm) {
 
             }
 
-        } catch (error) {
+        }
+
+        catch (error) {
 
             console.log(error);
 
@@ -184,19 +223,39 @@ if (registerForm) {
 // LOAD TABLES BASED ON GUESTS
 // ==========================================
 
-const guestsInput = document.getElementById("guests");
-const tableSelect = document.getElementById("tableNumber");
+const guestsInput =
+    document.getElementById("guests");
+
+const tableSelect =
+    document.getElementById("tableNumber");
 
 if (guestsInput && tableSelect) {
 
-    guestsInput.addEventListener("input", loadSuitableTables);
-    guestsInput.addEventListener("change", loadSuitableTables);
+    guestsInput.addEventListener(
+        "input",
+        loadSuitableTables
+    );
+
+    guestsInput.addEventListener(
+        "change",
+        loadSuitableTables
+    );
 
 }
 
-async function loadSuitableTables() {
 
-    const guests = Number(guestsInput.value);
+// ==========================================
+// LOAD SUITABLE TABLES
+// ==========================================
+
+async function loadSuitableTables(
+    selectedTable = null
+) {
+
+    if (!guestsInput || !tableSelect) return;
+
+    const guests =
+        Number(guestsInput.value);
 
     tableSelect.innerHTML =
         `<option value="">Select Suitable Table</option>`;
@@ -205,8 +264,11 @@ async function loadSuitableTables() {
 
     try {
 
-        const response = await fetch(`${API_URL}/tables`);
-        const tables = await response.json();
+        const response =
+            await fetch(`${API_URL}/tables`);
+
+        const tables =
+            await response.json();
 
         tables.forEach(table => {
 
@@ -218,7 +280,8 @@ async function loadSuitableTables() {
                 tableSelect.innerHTML += `
 
                     <option value="${table.tableNumber}">
-                        Table ${table.tableNumber} (${table.seats} Seats)
+                        Table ${table.tableNumber}
+                        (${table.seats} Seats)
                     </option>
 
                 `;
@@ -226,6 +289,29 @@ async function loadSuitableTables() {
             }
 
         });
+
+        // ------------------------------------------
+        // During rescheduling, keep the old table
+        // if it is available and suitable.
+        // ------------------------------------------
+
+        if (selectedTable) {
+
+            const oldTableOption =
+                [...tableSelect.options].find(
+                    option =>
+                        option.value ==
+                        selectedTable
+                );
+
+            if (oldTableOption) {
+
+                tableSelect.value =
+                    selectedTable;
+
+            }
+
+        }
 
     }
 
@@ -237,87 +323,382 @@ async function loadSuitableTables() {
 
 }
 
+
 // ==========================================
-// RESERVATION
+// RESERVATION / RESCHEDULE MODE
 // ==========================================
 
-const reservationForm = document.getElementById("reservationForm");
+const reservationForm =
+    document.getElementById("reservationForm");
+
+const reservationTitle =
+    document.getElementById("reservationTitle");
+
+const reservationSubmitBtn =
+    document.getElementById("reservationSubmitBtn");
+
+const cancelRescheduleBtn =
+    document.getElementById("cancelRescheduleBtn");
+
+
+// Get reservation ID from URL
+
+const urlParams =
+    new URLSearchParams(window.location.search);
+
+const rescheduleId =
+    urlParams.get("rescheduleId");
+
+
+// ==========================================
+// LOAD RESERVATION FOR RESCHEDULING
+// ==========================================
+
+async function loadReservationForReschedule() {
+
+    if (!rescheduleId) return;
+
+    try {
+
+        const response =
+            await fetch(
+                `${API_URL}/reservations/mybookings/${
+                    localStorage.getItem("username")
+                }`
+            );
+
+        const reservations =
+            await response.json();
+
+        const reservation =
+            reservations.find(
+                item => item._id === rescheduleId
+            );
+
+        if (!reservation) {
+
+            showToast(
+                "Reservation not found."
+            );
+
+            return;
+
+        }
+
+        // ------------------------------------------
+        // Fill existing information
+        // ------------------------------------------
+
+        document.getElementById(
+            "customerName"
+        ).value =
+            reservation.customerName;
+
+        document.getElementById(
+            "phone"
+        ).value =
+            reservation.phone;
+
+        document.getElementById(
+            "guests"
+        ).value =
+            reservation.guests;
+
+        document.getElementById(
+            "reservationDate"
+        ).value =
+            reservation.reservationDate;
+
+        document.getElementById(
+            "reservationTime"
+        ).value =
+            reservation.reservationTime;
+
+
+        // ------------------------------------------
+        // Change page title
+        // ------------------------------------------
+
+        if (reservationTitle) {
+
+            reservationTitle.innerText =
+                "Reschedule Reservation";
+
+        }
+
+
+        // ------------------------------------------
+        // Change button text
+        // ------------------------------------------
+
+        if (reservationSubmitBtn) {
+
+            reservationSubmitBtn.innerText =
+                "Update Reservation";
+
+        }
+
+
+        // ------------------------------------------
+        // Show cancel reschedule button
+        // ------------------------------------------
+
+        if (cancelRescheduleBtn) {
+
+            cancelRescheduleBtn.style.display =
+                "block";
+
+        }
+
+
+        // ------------------------------------------
+        // Load tables and keep old table selected
+        // ------------------------------------------
+
+        await loadSuitableTables(
+            reservation.tableNumber
+        );
+
+    }
+
+    catch (error) {
+
+        console.log(error);
+
+        showToast(
+            "Unable to load reservation."
+        );
+
+    }
+
+}
+
+
+// ==========================================
+// RESERVATION FORM
+// ==========================================
 
 if (reservationForm) {
 
-    reservationForm.addEventListener("submit", async function (e) {
+    reservationForm.addEventListener(
+        "submit",
+        async function (e) {
 
-        e.preventDefault();
+            e.preventDefault();
 
-        const customerName = document.getElementById("customerName").value.trim();
-        const phone = document.getElementById("phone").value.trim();
-        const tableNumber = document.getElementById("tableNumber").value;
-        const reservationDate = document.getElementById("reservationDate").value;
-        const reservationTime = document.getElementById("reservationTime").value;
-        const guests = document.getElementById("guests").value;
 
-        const username = localStorage.getItem("username");
+            const customerName =
+                document.getElementById(
+                    "customerName"
+                ).value.trim();
 
-        try {
+            const phone =
+                document.getElementById(
+                    "phone"
+                ).value.trim();
 
-            const response = await fetch(`${API_URL}/reservations/book`, {
+            const tableNumber =
+                document.getElementById(
+                    "tableNumber"
+                ).value;
 
-                method: "POST",
+            const reservationDate =
+                document.getElementById(
+                    "reservationDate"
+                ).value;
 
-                headers: {
-                    "Content-Type": "application/json"
-                },
+            const reservationTime =
+                document.getElementById(
+                    "reservationTime"
+                ).value;
 
-                body: JSON.stringify({
+            const guests =
+                document.getElementById(
+                    "guests"
+                ).value;
 
-                    customerName,
-                    username,
-                    phone,
-                    tableNumber,
-                    reservationDate,
-                    reservationTime,
-                    guests
+            const username =
+                localStorage.getItem(
+                    "username"
+                );
 
-                })
 
-            });
+            // ======================================
+            // RESCHEDULE EXISTING RESERVATION
+            // ======================================
 
-            const data = await response.json();
+            if (rescheduleId) {
 
-            if (response.ok) {
+                try {
 
-                reservationForm.reset();
+                    const response =
+                        await fetch(
+                            `${API_URL}/reservations/reschedule/${rescheduleId}`,
+                            {
 
-                if (tableSelect) {
+                                method: "PUT",
 
-                    tableSelect.innerHTML =
-                        `<option value="">Select Suitable Table</option>`;
+                                headers: {
+                                    "Content-Type":
+                                        "application/json"
+                                },
+
+                                body: JSON.stringify({
+
+                                    customerName,
+                                    phone,
+                                    tableNumber,
+                                    reservationDate,
+                                    reservationTime,
+                                    guests
+
+                                })
+
+                            }
+                        );
+
+                    const data =
+                        await response.json();
+
+                    if (response.ok) {
+
+                        showToast(
+                            "Reservation Rescheduled Successfully!"
+                        );
+
+                        setTimeout(() => {
+
+                            window.location.href =
+                                "mybookings.html";
+
+                        }, 1500);
+
+                    }
+
+                    else {
+
+                        showToast(
+                            data.message
+                        );
+
+                    }
 
                 }
 
-                showToast("Reservation Booked Successfully!");
+                catch (error) {
+
+                    console.log(error);
+
+                    showToast(
+                        "Server Error"
+                    );
+
+                }
+
+                return;
 
             }
 
-            else {
 
-                showToast(data.message);
+            // ======================================
+            // NORMAL NEW RESERVATION
+            // ======================================
+
+            try {
+
+                const response =
+                    await fetch(
+                        `${API_URL}/reservations/book`,
+                        {
+
+                            method: "POST",
+
+                            headers: {
+                                "Content-Type":
+                                    "application/json"
+                            },
+
+                            body: JSON.stringify({
+
+                                customerName,
+                                username,
+                                phone,
+                                tableNumber,
+                                reservationDate,
+                                reservationTime,
+                                guests
+
+                            })
+
+                        }
+                    );
+
+                const data =
+                    await response.json();
+
+                if (response.ok) {
+
+                    reservationForm.reset();
+
+                    if (tableSelect) {
+
+                        tableSelect.innerHTML =
+                            `<option value="">
+                                Select Suitable Table
+                            </option>`;
+
+                    }
+
+                    showToast(
+                        "Reservation Booked Successfully!"
+                    );
+
+                }
+
+                else {
+
+                    showToast(
+                        data.message
+                    );
+
+                }
+
+            }
+
+            catch (error) {
+
+                console.log(error);
+
+                showToast(
+                    "Server Error"
+                );
 
             }
 
         }
-
-        catch (error) {
-
-            console.log(error);
-
-            showToast("Server Error");
-
-        }
-
-    });
+    );
 
 }
+
+
+// ==========================================
+// CANCEL RESCHEDULE
+// ==========================================
+
+if (cancelRescheduleBtn) {
+
+    cancelRescheduleBtn.addEventListener(
+        "click",
+        function () {
+
+            window.location.href =
+                "mybookings.html";
+
+        }
+    );
+
+}
+
 
 // ==========================================
 // TOAST MESSAGE
@@ -325,11 +706,13 @@ if (reservationForm) {
 
 function showToast(message) {
 
-    const toast = document.getElementById("toast");
+    const toast =
+        document.getElementById("toast");
 
     if (!toast) return;
 
-    toast.innerText = message;
+    toast.innerText =
+        message;
 
     toast.classList.add("show");
 
@@ -346,7 +729,10 @@ function showToast(message) {
 // MY BOOKINGS
 // ==========================================
 
-const bookingTableBody = document.getElementById("bookingTableBody");
+const bookingTableBody =
+    document.getElementById(
+        "bookingTableBody"
+    );
 
 if (bookingTableBody) {
 
@@ -354,17 +740,51 @@ if (bookingTableBody) {
 
 }
 
+
+// ==========================================
+// LOAD MY BOOKINGS
+// ==========================================
+
 async function loadMyBookings() {
 
-    const username = localStorage.getItem("username");
+    const username =
+        localStorage.getItem(
+            "username"
+        );
+
+    if (!username) {
+
+        bookingTableBody.innerHTML = `
+
+            <tr>
+
+                <td
+                    colspan="8"
+                    style="text-align:center;"
+                >
+                    Please login first.
+                </td>
+
+            </tr>
+
+        `;
+
+        return;
+
+    }
 
     try {
 
-        const response = await fetch(`${API_URL}/reservations/mybookings/${username}`);
+        const response =
+            await fetch(
+                `${API_URL}/reservations/mybookings/${username}`
+            );
 
-        const reservations = await response.json();
+        const reservations =
+            await response.json();
 
-        bookingTableBody.innerHTML = "";
+        bookingTableBody.innerHTML =
+            "";
 
         if (reservations.length === 0) {
 
@@ -372,7 +792,10 @@ async function loadMyBookings() {
 
                 <tr>
 
-                    <td colspan="8" style="text-align:center;">
+                    <td
+                        colspan="8"
+                        style="text-align:center;"
+                    >
                         No Reservations Found
                     </td>
 
@@ -384,55 +807,102 @@ async function loadMyBookings() {
 
         }
 
-        reservations.forEach(reservation => {
 
-            bookingTableBody.innerHTML += `
+        reservations.forEach(
+            reservation => {
 
-                <tr>
+                // --------------------------------------
+                // RESCHEDULE + CANCEL
+                // only Pending reservations
+                // --------------------------------------
 
-                    <td>${reservation.customerName}</td>
+                let actionButtons = "";
 
-                    <td>${reservation.phone}</td>
+                if (
+                    reservation.status ===
+                    "Pending"
+                ) {
 
-                    <td>Table ${reservation.tableNumber}</td>
+                    actionButtons = `
 
-                    <td>${reservation.reservationDate}</td>
+                        <button
+                            class="rescheduleBtn"
+                            data-id="${reservation._id}"
+                        >
+                            Reschedule
+                        </button>
 
-                    <td>${reservation.reservationTime}</td>
+                        <button
+                            class="cancelBtn"
+                            data-id="${reservation._id}"
+                        >
+                            Cancel
+                        </button>
 
-                    <td>${reservation.guests}</td>
+                    `;
 
-                    <td>${reservation.status}</td>
+                }
 
-                    <td>
+                else {
 
-                        ${
-                            reservation.status === "Pending"
+                    actionButtons = `
 
-                            ?
-
-                            `<button
-                                class="cancelBtn"
-                                data-id="${reservation._id}">
-                                Cancel
-                            </button>`
-
-                            :
-
-                            `<span style="
+                        <span
+                            style="
                                 color:gray;
-                                font-weight:bold;">
-                                Not Allowed
-                            </span>`
-                        }
+                                font-weight:bold;
+                            "
+                        >
+                            Not Allowed
+                        </span>
 
-                    </td>
+                    `;
 
-                </tr>
+                }
 
-            `;
 
-        });
+                bookingTableBody.innerHTML += `
+
+                    <tr>
+
+                        <td>
+                            ${reservation.customerName}
+                        </td>
+
+                        <td>
+                            ${reservation.phone}
+                        </td>
+
+                        <td>
+                            Table ${reservation.tableNumber}
+                        </td>
+
+                        <td>
+                            ${reservation.reservationDate}
+                        </td>
+
+                        <td>
+                            ${reservation.reservationTime}
+                        </td>
+
+                        <td>
+                            ${reservation.guests}
+                        </td>
+
+                        <td>
+                            ${reservation.status}
+                        </td>
+
+                        <td>
+                            ${actionButtons}
+                        </td>
+
+                    </tr>
+
+                `;
+
+            }
+        );
 
     }
 
@@ -440,86 +910,163 @@ async function loadMyBookings() {
 
         console.log(error);
 
+        bookingTableBody.innerHTML = `
+
+            <tr>
+
+                <td
+                    colspan="8"
+                    style="text-align:center;"
+                >
+                    Unable to load reservations.
+                </td>
+
+            </tr>
+
+        `;
+
     }
 
 }
 
 
 // ==========================================
-// CANCEL RESERVATION
+// MY BOOKINGS BUTTON ACTIONS
 // ==========================================
 
 if (bookingTableBody) {
 
-    bookingTableBody.addEventListener("click", async function (e) {
+    bookingTableBody.addEventListener(
+        "click",
+        async function (e) {
 
-        if (!e.target.classList.contains("cancelBtn")) return;
 
-        const confirmCancel = confirm("Do you want to cancel this reservation?");
+            // ======================================
+            // RESCHEDULE
+            // ======================================
 
-        if (!confirmCancel) return;
+            if (
+                e.target.classList.contains(
+                    "rescheduleBtn"
+                )
+            ) {
 
-        const id = e.target.dataset.id;
+                const id =
+                    e.target.dataset.id;
 
-        try {
+                window.location.href =
+                    `book-reservation.html?rescheduleId=${id}`;
 
-            const response = await fetch(`${API_URL}/reservations/cancel/${id}`, {
-
-                method: "PUT"
-
-            });
-
-            const data = await response.json();
-
-            if (response.ok) {
-
-                showToast(data.message);
-
-                setTimeout(() => {
-
-                    loadMyBookings();
-
-                }, 1000);
+                return;
 
             }
 
-            else {
 
-                showToast(data.message);
+            // ======================================
+            // CANCEL
+            // ======================================
+
+            if (
+                !e.target.classList.contains(
+                    "cancelBtn"
+                )
+            ) {
+
+                return;
+
+            }
+
+
+            const confirmCancel =
+                confirm(
+                    "Do you want to cancel this reservation?"
+                );
+
+            if (!confirmCancel) return;
+
+
+            const id =
+                e.target.dataset.id;
+
+
+            try {
+
+                const response =
+                    await fetch(
+                        `${API_URL}/reservations/cancel/${id}`,
+                        {
+                            method: "PUT"
+                        }
+                    );
+
+                const data =
+                    await response.json();
+
+
+                if (response.ok) {
+
+                    showToast(
+                        data.message
+                    );
+
+                    setTimeout(() => {
+
+                        loadMyBookings();
+
+                    }, 1000);
+
+                }
+
+                else {
+
+                    showToast(
+                        data.message
+                    );
+
+                }
+
+            }
+
+            catch (error) {
+
+                console.log(error);
+
+                showToast(
+                    "Server Error"
+                );
 
             }
 
         }
-
-        catch (error) {
-
-            console.log(error);
-
-            showToast("Server Error");
-
-        }
-
-    });
+    );
 
 }
+
 
 // ==========================================
 // LOGOUT
 // ==========================================
 
-const logoutBtn = document.getElementById("logoutBtn");
+const logoutBtn =
+    document.getElementById(
+        "logoutBtn"
+    );
 
 if (logoutBtn) {
 
-    logoutBtn.addEventListener("click", function (e) {
+    logoutBtn.addEventListener(
+        "click",
+        function (e) {
 
-        e.preventDefault();
+            e.preventDefault();
 
-        localStorage.clear();
+            localStorage.clear();
 
-        window.location.href = "index.html";
+            window.location.href =
+                "index.html";
 
-    });
+        }
+    );
 
 }
 
@@ -528,33 +1075,63 @@ if (logoutBtn) {
 // PAGE AUTO LOAD
 // ==========================================
 
-window.addEventListener("DOMContentLoaded", () => {
+window.addEventListener(
+    "DOMContentLoaded",
+    () => {
 
-    // Restaurant Details
-    if (document.getElementById("restaurantName")) {
+        // --------------------------------------
+        // Reservation Page
+        // --------------------------------------
 
-        // Already loaded at top
+        if (
+            document.getElementById(
+                "guests"
+            )
+        ) {
+
+            // If this is NOT reschedule mode,
+            // load normal suitable tables.
+
+            if (!rescheduleId) {
+
+                loadSuitableTables();
+
+            }
+
+            else {
+
+                // Load the existing reservation
+                // information.
+
+                loadReservationForReschedule();
+
+            }
+
+        }
+
+
+        // --------------------------------------
+        // My Bookings
+        // --------------------------------------
+
+        if (
+            document.getElementById(
+                "bookingTableBody"
+            )
+        ) {
+
+            loadMyBookings();
+
+        }
+
     }
-
-    // Reservation Page
-    if (document.getElementById("guests")) {
-
-        loadSuitableTables();
-
-    }
-
-    // My Bookings
-    if (document.getElementById("bookingTableBody")) {
-
-        loadMyBookings();
-
-    }
-
-});
+);
 
 
 // ==========================================
 // END OF FILE
 // ==========================================
 
-console.log("app.js loaded successfully.");
+console.log(
+    "app.js loaded successfully."
+);
