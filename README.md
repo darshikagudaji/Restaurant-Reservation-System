@@ -160,37 +160,6 @@ Main collections:
 
 MongoDB Compass can be used to view the database and collections.
 
-## 9. Troubleshooting
-
-### Backend Server Error
-
-Make sure the backend is running:
-
-```http://localhost:5000```
-
-Also check the terminal and browser console for errors.
-
-### MongoDB Connection Problem
-
-Make sure MongoDB is running and MongoDB Compass can connect to:
-
-``` mongodb://localhost:27017/```
-
-Check the MongoDB connection settings in the backend.
-
-### No Data in MongoDB
-
-Make sure the application is connected to MongoDB.
-
-Register a customer or make a reservation and then refresh MongoDB Compass to view the stored data.
-
-### Tables Not Appearing
-
-Enter the number of guests. The system displays tables that have enough seats and are available.
-
-### My Bookings Empty
-
-Make sure you are logged in with the same customer account used to make the reservation.
 
 ## 10. Testing
 
