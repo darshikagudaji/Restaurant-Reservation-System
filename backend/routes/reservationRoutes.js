@@ -4,6 +4,7 @@ const router = express.Router();
 const Reservation = require("../models/Reservation");
 const Table = require("../models/Table");
 
+
 // ======================================
 // BOOK TABLE
 // ======================================
@@ -22,55 +23,71 @@ router.post("/book", async (req, res) => {
             guests
         } = req.body;
 
-        const existingReservation = await Reservation.findOne({
 
-            tableNumber,
-            reservationDate,
-            reservationTime,
+        const existingReservation =
+            await Reservation.findOne({
 
-            status: {
-                $nin: ["Cancelled", "Rejected"]
-            }
+                tableNumber,
+                reservationDate,
+                reservationTime,
 
-        });
+                status: {
+                    $nin: ["Cancelled", "Rejected"]
+                }
+
+            });
+
 
         if (existingReservation) {
 
             return res.status(400).json({
 
-                message: "This table is already booked for the selected date and time."
+                message:
+                    "This table is already booked for the selected date and time."
 
             });
 
         }
 
-        const reservation = new Reservation({
 
-            customerName,
-            username,
-            phone,
-            tableNumber,
-            reservationDate,
-            reservationTime,
-            guests,
-            status: "Pending"
+        const reservation =
+            new Reservation({
 
-        });
+                customerName,
+                username,
+                phone,
+                tableNumber,
+                reservationDate,
+                reservationTime,
+                guests,
+                status: "Pending"
+
+            });
+
 
         await reservation.save();
 
+
         // Update Table Status
+
         await Table.findOneAndUpdate(
 
-            { tableNumber: Number(tableNumber) },
+            {
+                tableNumber:
+                    Number(tableNumber)
+            },
 
-            { status: "Booked" }
+            {
+                status: "Booked"
+            }
 
         );
 
+
         res.status(201).json({
 
-            message: "Reservation Booked Successfully"
+            message:
+                "Reservation Booked Successfully"
 
         });
 
@@ -87,6 +104,7 @@ router.post("/book", async (req, res) => {
     }
 
 });
+
 
 // ======================================
 // VIEW ALL RESERVATIONS
@@ -96,12 +114,14 @@ router.get("/", async (req, res) => {
 
     try {
 
-        const reservations = await Reservation.find().sort({
+        const reservations =
+            await Reservation.find().sort({
 
-            reservationDate: 1,
-            reservationTime: 1
+                reservationDate: 1,
+                reservationTime: 1
 
-        });
+            });
+
 
         res.json(reservations);
 
@@ -118,285 +138,672 @@ router.get("/", async (req, res) => {
     }
 
 });
+
 
 // ======================================
 // MY BOOKINGS
 // ======================================
 
-router.get("/mybookings/:username", async (req, res) => {
+router.get(
+    "/mybookings/:username",
+    async (req, res) => {
 
-    try {
+        try {
 
-        const reservations = await Reservation.find({
+            const reservations =
+                await Reservation.find({
 
-            username: req.params.username
+                    username:
+                        req.params.username
 
-        }).sort({
+                }).sort({
 
-            reservationDate: -1,
-            reservationTime: -1
+                    reservationDate: -1,
+                    reservationTime: -1
 
-        });
+                });
 
-        res.json(reservations);
+
+            res.json(reservations);
+
+        }
+
+        catch (err) {
+
+            res.status(500).json({
+
+                message: err.message
+
+            });
+
+        }
 
     }
+);
 
-    catch (err) {
-
-        res.status(500).json({
-
-            message: err.message
-
-        });
-
-    }
-
-});
 
 // ======================================
 // CANCEL RESERVATION
 // ======================================
 
-router.put("/cancel/:id", async (req, res) => {
+router.put(
+    "/cancel/:id",
+    async (req, res) => {
 
-    try {
+        try {
 
-        const reservation = await Reservation.findById(req.params.id);
+            const reservation =
+                await Reservation.findById(
+                    req.params.id
+                );
 
-        await Reservation.findByIdAndUpdate(req.params.id, {
 
-            status: "Cancelled"
+            if (!reservation) {
 
-        });
+                return res.status(404).json({
 
-        await Table.findOneAndUpdate(
+                    message:
+                        "Reservation not found."
 
-            { tableNumber: reservation.tableNumber },
+                });
 
-            { status: "Available" }
+            }
 
-        );
 
-        res.json({
+            await Reservation.findByIdAndUpdate(
 
-            message: "Reservation Cancelled Successfully"
+                req.params.id,
 
-        });
+                {
+                    status: "Cancelled"
+                }
+
+            );
+
+
+            await Table.findOneAndUpdate(
+
+                {
+                    tableNumber:
+                        reservation.tableNumber
+                },
+
+                {
+                    status: "Available"
+                }
+
+            );
+
+
+            res.json({
+
+                message:
+                    "Reservation Cancelled Successfully"
+
+            });
+
+        }
+
+        catch (err) {
+
+            res.status(500).json({
+
+                message: err.message
+
+            });
+
+        }
 
     }
+);
 
-    catch (err) {
 
-        res.status(500).json({
+// ======================================
+// RESCHEDULE RESERVATION
+// ======================================
 
-            message: err.message
+router.put(
+    "/reschedule/:id",
+    async (req, res) => {
 
-        });
+        try {
+
+            const {
+                customerName,
+                phone,
+                tableNumber,
+                reservationDate,
+                reservationTime,
+                guests
+            } = req.body;
+
+
+            // --------------------------------------
+            // Find existing reservation
+            // --------------------------------------
+
+            const reservation =
+                await Reservation.findById(
+                    req.params.id
+                );
+
+
+            if (!reservation) {
+
+                return res.status(404).json({
+
+                    message:
+                        "Reservation not found."
+
+                });
+
+            }
+
+
+            // --------------------------------------
+            // Only Pending reservation
+            // can be rescheduled
+            // --------------------------------------
+
+            if (
+                reservation.status !==
+                "Pending"
+            ) {
+
+                return res.status(400).json({
+
+                    message:
+                        "This reservation cannot be rescheduled."
+
+                });
+
+            }
+
+
+            // --------------------------------------
+            // Check whether new table/date/time
+            // is already reserved
+            // --------------------------------------
+
+            const existingReservation =
+                await Reservation.findOne({
+
+                    _id: {
+                        $ne: req.params.id
+                    },
+
+                    tableNumber:
+                        Number(tableNumber),
+
+                    reservationDate,
+
+                    reservationTime,
+
+                    status: {
+                        $nin: [
+                            "Cancelled",
+                            "Rejected"
+                        ]
+                    }
+
+                });
+
+
+            if (existingReservation) {
+
+                return res.status(400).json({
+
+                    message:
+                        "This table is already booked for the selected date and time."
+
+                });
+
+            }
+
+
+            // --------------------------------------
+            // Store old table number
+            // --------------------------------------
+
+            const oldTableNumber =
+                reservation.tableNumber;
+
+
+            // --------------------------------------
+            // Update reservation
+            // --------------------------------------
+
+            reservation.customerName =
+                customerName;
+
+            reservation.phone =
+                phone;
+
+            reservation.tableNumber =
+                Number(tableNumber);
+
+            reservation.reservationDate =
+                reservationDate;
+
+            reservation.reservationTime =
+                reservationTime;
+
+            reservation.guests =
+                Number(guests);
+
+
+            // Keep status Pending
+            reservation.status =
+                "Pending";
+
+
+            await reservation.save();
+
+
+            // --------------------------------------
+            // If table changed:
+            // make old table available
+            // --------------------------------------
+
+            if (
+                Number(oldTableNumber) !==
+                Number(tableNumber)
+            ) {
+
+                await Table.findOneAndUpdate(
+
+                    {
+                        tableNumber:
+                            Number(oldTableNumber)
+                    },
+
+                    {
+                        status:
+                            "Available"
+                    }
+
+                );
+
+            }
+
+
+            // --------------------------------------
+            // Mark new table as booked
+            // --------------------------------------
+
+            await Table.findOneAndUpdate(
+
+                {
+                    tableNumber:
+                        Number(tableNumber)
+                },
+
+                {
+                    status:
+                        "Booked"
+                }
+
+            );
+
+
+            res.json({
+
+                message:
+                    "Reservation Rescheduled Successfully"
+
+            });
+
+        }
+
+        catch (err) {
+
+            res.status(500).json({
+
+                message: err.message
+
+            });
+
+        }
 
     }
+);
 
-});
 
 // ======================================
 // CONFIRM RESERVATION
 // ======================================
 
-router.put("/confirm/:id", async (req, res) => {
+router.put(
+    "/confirm/:id",
+    async (req, res) => {
 
-    try {
+        try {
 
-        await Reservation.findByIdAndUpdate(req.params.id, {
+            const reservation =
+                await Reservation.findById(
+                    req.params.id
+                );
 
-            status: "Confirmed"
 
-        });
+            if (!reservation) {
 
-        res.json({
+                return res.status(404).json({
 
-            message: "Reservation Confirmed Successfully"
+                    message:
+                        "Reservation not found."
 
-        });
+                });
+
+            }
+
+
+            await Reservation.findByIdAndUpdate(
+
+                req.params.id,
+
+                {
+                    status: "Confirmed"
+                }
+
+            );
+
+
+            res.json({
+
+                message:
+                    "Reservation Confirmed Successfully"
+
+            });
+
+        }
+
+        catch (err) {
+
+            res.status(500).json({
+
+                message: err.message
+
+            });
+
+        }
 
     }
+);
 
-    catch (err) {
-
-        res.status(500).json({
-
-            message: err.message
-
-        });
-
-    }
-
-});
 
 // ======================================
 // REJECT RESERVATION
 // ======================================
 
-router.put("/reject/:id", async (req, res) => {
+router.put(
+    "/reject/:id",
+    async (req, res) => {
 
-    try {
+        try {
 
-        const reservation = await Reservation.findById(req.params.id);
+            const reservation =
+                await Reservation.findById(
+                    req.params.id
+                );
 
-        await Reservation.findByIdAndUpdate(req.params.id, {
 
-            status: "Rejected"
+            if (!reservation) {
 
-        });
+                return res.status(404).json({
 
-        await Table.findOneAndUpdate(
+                    message:
+                        "Reservation not found."
 
-            { tableNumber: reservation.tableNumber },
+                });
 
-            { status: "Available" }
+            }
 
-        );
 
-        res.json({
+            await Reservation.findByIdAndUpdate(
 
-            message: "Reservation Rejected Successfully"
+                req.params.id,
 
-        });
+                {
+                    status: "Rejected"
+                }
+
+            );
+
+
+            await Table.findOneAndUpdate(
+
+                {
+                    tableNumber:
+                        reservation.tableNumber
+                },
+
+                {
+                    status: "Available"
+                }
+
+            );
+
+
+            res.json({
+
+                message:
+                    "Reservation Rejected Successfully"
+
+            });
+
+        }
+
+        catch (err) {
+
+            res.status(500).json({
+
+                message: err.message
+
+            });
+
+        }
 
     }
+);
 
-    catch (err) {
-
-        res.status(500).json({
-
-            message: err.message
-
-        });
-
-    }
-
-});
 
 // ======================================
 // UPDATE STATUS
 // ======================================
 
-router.put("/status/:id", async (req, res) => {
+router.put(
+    "/status/:id",
+    async (req, res) => {
 
-    try {
+        try {
 
-        const { status } = req.body;
+            const {
+                status
+            } = req.body;
 
-        const reservation = await Reservation.findById(req.params.id);
 
-        await Reservation.findByIdAndUpdate(req.params.id, {
+            const reservation =
+                await Reservation.findById(
+                    req.params.id
+                );
 
-            status
 
-        });
+            if (!reservation) {
 
-        // Free table if reservation ends
-        if (status === "Completed" || status === "Cancelled") {
+                return res.status(404).json({
 
-            await Table.findOneAndUpdate(
+                    message:
+                        "Reservation not found."
 
-                { tableNumber: reservation.tableNumber },
+                });
 
-                { status: "Available" }
+            }
+
+
+            await Reservation.findByIdAndUpdate(
+
+                req.params.id,
+
+                {
+                    status
+                }
 
             );
 
+
+            // Free table if reservation ends
+
+            if (
+                status === "Completed" ||
+                status === "Cancelled"
+            ) {
+
+                await Table.findOneAndUpdate(
+
+                    {
+                        tableNumber:
+                            reservation.tableNumber
+                    },
+
+                    {
+                        status:
+                            "Available"
+                    }
+
+                );
+
+            }
+
+
+            res.json({
+
+                message:
+                    "Reservation Status Updated"
+
+            });
+
         }
 
-        res.json({
+        catch (err) {
 
-            message: "Reservation Status Updated"
+            res.status(500).json({
 
-        });
+                message: err.message
 
-    }
+            });
 
-    catch (err) {
-
-        res.status(500).json({
-
-            message: err.message
-
-        });
+        }
 
     }
+);
 
-});
 
 // ======================================
 // DASHBOARD STATISTICS
 // ======================================
 
-router.get("/stats", async (req, res) => {
+router.get(
+    "/stats",
+    async (req, res) => {
 
-    try {
+        try {
 
-        const today = new Date().toISOString().split("T")[0];
+            const today =
+                new Date()
+                    .toISOString()
+                    .split("T")[0];
 
-        const totalReservations = await Reservation.countDocuments();
 
-        const todayReservations = await Reservation.countDocuments({
+            const totalReservations =
+                await Reservation.countDocuments();
 
-            reservationDate: today
 
-        });
+            const todayReservations =
+                await Reservation.countDocuments({
 
-        const confirmedReservations = await Reservation.countDocuments({
+                    reservationDate:
+                        today
 
-            status: "Confirmed"
+                });
 
-        });
 
-        const cancelledReservations = await Reservation.countDocuments({
+            const confirmedReservations =
+                await Reservation.countDocuments({
 
-            status: "Cancelled"
+                    status:
+                        "Confirmed"
 
-        });
+                });
 
-        const bookedTables = await Reservation.countDocuments({
 
-            status: {
-                $in: ["Pending", "Confirmed"]
-            }
+            const cancelledReservations =
+                await Reservation.countDocuments({
 
-        });
+                    status:
+                        "Cancelled"
 
-        const totalTables = await Table.countDocuments();
+                });
 
-        const availableTables = await Table.countDocuments({
 
-            status: "Available"
+            const bookedTables =
+                await Reservation.countDocuments({
 
-        });
+                    status: {
+                        $in: [
+                            "Pending",
+                            "Confirmed"
+                        ]
+                    }
 
-        res.json({
+                });
 
-            totalReservations,
-            todayReservations,
-            confirmedReservations,
-            cancelledReservations,
-            bookedTables,
-            availableTables,
-            totalTables
 
-        });
+            const totalTables =
+                await Table.countDocuments();
+
+
+            const availableTables =
+                await Table.countDocuments({
+
+                    status:
+                        "Available"
+
+                });
+
+
+            res.json({
+
+                totalReservations,
+
+                todayReservations,
+
+                confirmedReservations,
+
+                cancelledReservations,
+
+                bookedTables,
+
+                availableTables,
+
+                totalTables
+
+            });
+
+        }
+
+        catch (err) {
+
+            res.status(500).json({
+
+                message:
+                    err.message
+
+            });
+
+        }
 
     }
+);
 
-    catch (err) {
-
-        res.status(500).json({
-
-            message: err.message
-
-        });
-
-    }
-
-});
 
 module.exports = router;
