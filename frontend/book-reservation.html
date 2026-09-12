@@ -1,84 +1,194 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
+
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
     <title>Book a Table - Food Palace</title>
-    <link rel="stylesheet" href="css/style.css">
+
+    <link
+        rel="stylesheet"
+        href="css/style.css"
+    >
+
 </head>
+
 <body>
 
+<!-- =====================================================
+     HEADER
+====================================================== -->
+
 <header>
+
     <div class="logo">
+
         <h2>🍽 Food Palace</h2>
+
     </div>
 
     <nav>
-        <a href="index.html">Home</a>
-        <a href="mybookings.html">My Bookings</a>
-        <a href="index.html" id="logoutBtn">Logout</a>
+
+        <a href="index.html">
+            Home
+        </a>
+
+        <a href="mybookings.html">
+            My Bookings
+        </a>
+
+        <a
+            href="index.html"
+            id="logoutBtn"
+        >
+            Logout
+        </a>
+
     </nav>
+
 </header>
+
+
+<!-- =====================================================
+     RESERVATION SECTION
+====================================================== -->
 
 <section class="form-section">
 
     <div class="form-box">
 
-        <h2>Reserve A Table</h2>
+        <!-- This heading changes when rescheduling -->
 
-       <form id="reservationForm">
+        <h2 id="reservationTitle">
+            Reserve A Table
+        </h2>
 
-    <input
-        type="text"
-        id="customerName"
-        placeholder="Customer Name"
-        required
-    >
 
-    <input
-        type="text"
-        id="phone"
-        placeholder="Phone Number"
-        required
-    >
+        <!-- =================================================
+             RESERVATION FORM
+        ================================================== -->
 
-    <input
-        type="number"
-        id="guests"
-        placeholder="Number of Guests"
-        min="1"
-        max="8"
-        required
-    >
+        <form id="reservationForm">
 
-    <select id="tableNumber" required>
-        <option value="">Select Suitable Table</option>
-    </select>
 
-    <input
-        type="date"
-        id="reservationDate"
-        required
-    >
+            <!-- CUSTOMER NAME -->
 
-    <input
-        type="time"
-        id="reservationTime"
-        required
-    >
+            <input
+                type="text"
+                id="customerName"
+                placeholder="Customer Name"
+                required
+            >
 
-    <button type="submit">
-        Confirm Reservation
-    </button>
 
-</form>
+            <!-- PHONE -->
+
+            <input
+                type="text"
+                id="phone"
+                placeholder="Phone Number"
+                required
+            >
+
+
+            <!-- NUMBER OF GUESTS -->
+
+            <input
+                type="number"
+                id="guests"
+                placeholder="Number of Guests"
+                min="1"
+                max="8"
+                required
+            >
+
+
+            <!-- TABLE -->
+
+            <select
+                id="tableNumber"
+                required
+            >
+
+                <option value="">
+                    Select Suitable Table
+                </option>
+
+            </select>
+
+
+            <!-- DATE -->
+
+            <input
+                type="date"
+                id="reservationDate"
+                required
+            >
+
+
+            <!-- TIME -->
+
+            <input
+                type="time"
+                id="reservationTime"
+                required
+            >
+
+
+            <!-- =================================================
+                 NORMAL BOOKING / RESCHEDULE BUTTON
+            ================================================== -->
+
+            <button
+                type="submit"
+                id="reservationSubmitBtn"
+            >
+                Confirm Reservation
+            </button>
+
+
+            <!-- =================================================
+                 CANCEL RESCHEDULE
+            ================================================== -->
+
+            <button
+                type="button"
+                id="cancelRescheduleBtn"
+                style="display:none;"
+            >
+                Cancel Reschedule
+            </button>
+
+
+        </form>
+
     </div>
 
 </section>
 
-<div id="toast" class="toast"></div>
+
+<!-- =====================================================
+     TOAST MESSAGE
+====================================================== -->
+
+<div
+    id="toast"
+    class="toast"
+></div>
+
+
+<!-- =====================================================
+     JAVASCRIPT
+====================================================== -->
 
 <script src="js/app.js"></script>
 
 </body>
+
 </html>
